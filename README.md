@@ -4,123 +4,103 @@
 
 ## Mechatronics & Sensor Technology Project
 
-An interdisciplinary mechatronics project focused on the development of an eight-string, contactless Laser Harp.
+An interdisciplinary engineering project focused on the development of an
+eight-string, contactless Laser Harp.
 
-The system combines optics, electronics, sensor technology, embedded programming and MIDI communication. Laser beams are directed onto LDR (Light Dependent Resistor) sensors. When a laser beam is interrupted, the resulting change in the sensor signal is detected by an Arduino Mega 2560 and converted into a corresponding MIDI note.
+The system combines optics, electronics, sensor technology, embedded
+programming and MIDI communication. When a laser beam is interrupted,
+the corresponding LDR sensor detects the change in light intensity.
+The Arduino processes the sensor signal and generates the corresponding
+MIDI note.
 
 ---
 
 ## 📌 Project Overview
 
-The goal of the project was to design and build a functional Laser Harp that converts physical interaction with laser beams into digital musical signals.
+The goal of the project was to design and build a functional Laser Harp
+that converts physical interaction with laser beams into digital musical
+signals.
 
-The system consists of eight laser beams and eight LDR sensors. Each laser beam represents one string of the instrument. When a beam is interrupted, the corresponding change in light intensity is detected by the LDR sensor.
+The system consists of eight laser beams and eight light-dependent
+resistors (LDRs). Each laser beam represents one virtual string of the
+instrument.
 
-The Arduino processes the sensor signals, determines which string has been interrupted and generates the corresponding MIDI Note On or Note Off message. The MIDI signal can then be processed by a computer-based synthesizer or DAW.
+The complete signal chain is:
 
-The project combines:
+**Laser interruption → LDR sensor → Arduino → Serial communication
+→ MIDI → Virtual Instrument**
 
-- Physics and optics
-- Electronics
-- Sensor technology
-- Embedded programming
-- Signal processing
-- MIDI communication
-- Mechanical design and CAD
+The MIDI signals can be routed to a DAW or VST host to generate the
+corresponding sound.
 
 ---
 
-## ⚙️ Hardware
+## ⚙️ Key Features
 
-The main hardware components include:
+- 8 laser beams / virtual strings
+- 8 LDR light sensors
+- Arduino Mega 2560
+- Contactless note triggering
+- Sensor calibration during system startup
+- Three selectable musical scales
+- MIDI note generation
+- Signal hysteresis for stable detection
+- Dedicated system and scale-status LEDs
+- External power supply for stable operation
+
+---
+
+## 🔧 Hardware
+
+Main components include:
 
 - Arduino Mega 2560
-- 8 × laser modules
-- 8 × LDR sensors
+- 8× KY-008 laser modules
+- 8× GL5528 LDR sensors
 - BC337 transistor
-- Push buttons
+- 10 kΩ resistors
+- 330 Ω base resistor
+- 12 Ω laser resistors
+- Push buttons for system and scale control
 - Status LEDs
-- 9 V DC power supply
-- Custom electronic wiring
-- 3D-printed housing
+- 9 V / 1500 mA DC power supply
 
-The project also involved the analysis and optimization of the power supply, transistor selection, grounding concept and sensor stability. :contentReference[oaicite:2]{index=2}
+The electronic design, circuit diagrams, component selection and
+measurements are documented in the project documentation.
 
 ---
 
 ## 💻 Software
 
-The Arduino software was structured into separate components for:
+The Arduino firmware is structured into separate areas for:
 
 - Hardware I/O
 - System state management
 - Sensor calibration
 - Scale selection
-- Laser control
-- Sensor signal processing
+- Laser-string scanning
 - MIDI note generation
+- Note-off / panic handling
 
-The system supports three predefined musical scales and uses eight sensor channels corresponding to the eight laser strings. :contentReference[oaicite:3]{index=3}
+The software uses a central `harp_context_t` structure to manage the
+system state.
 
-A hysteresis-based detection algorithm is used to prevent unwanted note flickering when the laser beam is only partially interrupted. :contentReference[oaicite:4]{index=4}
-
-### Source Code
-
-➡️ **[View the Arduino Source Code](Code/sketch_dec1b.ino)**
-
----
-
-## 🧪 Testing & Validation
-
-The project included systematic electrical measurements, troubleshooting and functional testing.
-
-Among other aspects, the team investigated:
-
-- Power supply stability
-- Voltage drops
-- Grounding
-- Transistor switching
-- Laser voltage
-- Sensor reliability
-- Laser safety
-
-A star-grounding topology was implemented to separate high-current laser loads from the sensitive sensor measurement circuitry. :contentReference[oaicite:5]{index=5}
-
-The final prototype successfully achieved the project objectives and demonstrated a functional eight-string Laser Harp. :contentReference[oaicite:6]{index=6}
+A threshold-based detection method with hysteresis is used to prevent
+unwanted note triggering when a hand is close to the edge of a laser beam.
 
 ---
 
-## 🛠️ Mechanical Design
+## 🎹 MIDI Integration
 
-The mechanical development progressed through several prototypes.
+The Arduino sends the detected musical events through serial
+communication.
 
-The first prototype was used to validate the basic laser/LDR detection principle. The second prototype expanded the system to eight strings and was mounted on a wooden plate.
+The project uses a software chain consisting of:
 
-The final design used a framed housing to provide stable alignment between the lasers and sensors and to protect the electronics. :contentReference[oaicite:7]{index=7}
+**Arduino → Hairless MIDI/Serial Bridge → loopMIDI → DAW/VST**
 
----
-
-## 👨‍🔧 My Contribution
-
-My main contribution to the project focused on the **electronics and sensor system**.
-
-My work was particularly related to:
-
-- Electronic circuit implementation
-- LDR-based sensor detection
-- Hardware integration
-- Interaction between sensors and the Arduino
-- Testing and troubleshooting
-
-The project was developed as a team project together with Ahmad Berkel and Majd Hagig. :contentReference[oaicite:8]{index=8}
-
----
-
-## 📄 Documentation
-
-The complete project documentation covers the theoretical background, hardware development, software implementation, MIDI integration, mechanical design, testing, troubleshooting and project results.
-
-➡️ **[Read the Complete Project Documentation](Documentation_v1-5.pdf)**
+This allows the Laser Harp to control virtual instruments and produce
+musical output.
 
 ---
 
@@ -130,23 +110,62 @@ The complete project documentation covers the theoretical background, hardware d
 
 ---
 
-## 🎓 Project Context
+## 📄 Documentation
 
-**Program:** Mechatronics & Sensor Technology  
-**Institution:** Hochschule für Technik und Wirtschaft des Saarlandes (htw saar)  
-**Course:** Physics 3  
-**Project:** Arduino Laser Harp  
-**Project Number:** 2025-LH-001  
-**Year:** 2026
+➡️ **[Read the Complete Project Documentation](Documentation_v1-5.pdf)**
+
+The documentation contains the complete development process, including:
+
+- Project planning
+- Physical principles
+- Hardware development
+- Circuit design
+- Software implementation
+- MIDI integration
+- Housing and construction
+- Troubleshooting
+- Measurements and testing
+- Laser safety validation
+- Final results and future improvements
+
+---
+
+## 💾 Source Code
+
+➡️ **[View the Arduino Source Code](Code/sketch_dec1b.ino)**
+
+The repository contains the complete Arduino firmware used for the
+Laser Harp.
 
 ---
 
 ## 🚀 Future Development
 
-Possible future improvements described in the project documentation include:
+Possible future improvements described in the project documentation
+include:
 
-- Adding an ultrasonic sensor for dynamic control of note velocity
+- Adding ultrasonic sensing for expressive volume/modulation control
 - Developing a standalone version using a Raspberry Pi
-- Integrating a software synthesizer directly into the instrument
+- Integrating sound generation directly into the instrument
+- Reducing the dependence on an external computer
 
-These concepts would make the Laser Harp more expressive and potentially usable as a standalone musical instrument. :contentReference[oaicite:9]{index=9}
+---
+
+## 👨‍💻 Project Team
+
+**Morad Lahrour**  
+**Ahmad Berkel**  
+**Majd Hagig**
+
+Hochschule für Technik und Wirtschaft des Saarlandes (htw saar)
+
+---
+
+## 📚 Project Information
+
+**Project:** Arduino Laser Harp  
+**Project Number:** 2025-LH-001  
+**Institution:** Hochschule für Technik und Wirtschaft des Saarlandes  
+**Project Period:** November 2025 – February 2026
+
+
