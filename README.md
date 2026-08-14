@@ -1,5 +1,7 @@
 # 🎵 Arduino Laser Harp
 
+![Arduino Laser Harp](laser-harp-final.png)
+
 ## Mechatronics & Sensor Technology Project
 
 An interdisciplinary mechatronics project focused on the development of an eight-string, contactless Laser Harp.
